@@ -33,7 +33,6 @@ driver = webdriver.Chrome(service=service, options=chrome_options)
 # 웹페이지 해당 주소 이동
 driver.get("https://www.google.co.kr/imghp?hl=ko&tab=ri&authuser=0&ogbl")
 
-# 검색창으로 이동하여 아이유를 쓰고 클릭하기
 elem = driver.find_element(By.CLASS_NAME, "gLFyf")
 elem.send_keys(serchName)
 elem.send_keys(Keys.RETURN)

@@ -11,7 +11,7 @@ import os
 serchName = input("검색어 입력 : ")
 countnum = int(input("이미지 저장할 횟수 : "))
 
-save_directory = f"C:/FuckingAI/{serchName}"
+save_directory = f"./{serchName}"
 
 if not os.path.exists(save_directory):
     os.makedirs(save_directory)
@@ -38,7 +38,6 @@ elem.send_keys(serchName)
 elem.send_keys(Keys.RETURN)
 
 # 많은 이미지를 구하기 위해 스크롤 내리기
-
 SCROLL_PAUSE_TIME = 1
 
 # 스크롤 높이 재기
@@ -78,6 +77,8 @@ for image in images[:countnum]:
         countError += 1
 driver.close()
 
+
+print(f"검색어 : {serchName}")
 print(f"시도한 횟수 : {countnum}")
 print(f"실패 횟수 : {countError}")
 print(f"저장된 이미지 수 : {countnum - countError}")

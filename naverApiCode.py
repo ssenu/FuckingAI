@@ -3,6 +3,7 @@ import urllib.request
 import json
 import ssl
 import requests
+import time
 
 ssl._create_default_https_context = ssl._create_unverified_context()
 
@@ -46,7 +47,15 @@ for i in range(start, end, display):
         file_path = os.path.join(folder_path, file_name)
 
         # 파일 저장
-        with open(file_path, 'wb') as f:
-            f.write(img_file.content)
-            print(f'{n}번째 사진 다운로드..')
+        # time.sleep(1)
+        try:
+            with open(file_path, 'wb') as f:
+                try:
+                    f.write(img_file.content)
+                    print(f'{n}번째 사진 다운로드..')
+                except Exception as e:
+                    print(f"{n}번째 사진 다운로드 에러..")
+        except Exception as e:
+            print(f"{n}번째 사진 저장 오류")
+        finally:
             n += 1

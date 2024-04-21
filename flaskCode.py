@@ -1,6 +1,6 @@
 from flask import Flask, request
 from datetime import datetime
-import testmodel
+import loadModelCode
 import os
 
 app = Flask(__name__)
@@ -17,7 +17,7 @@ def handle_request():
         image_path = os.path.join('image', filename)
         imagefile.save(image_path)
 
-        text = testmodel.imageFunc("image/"+filename)
+        text = loadModelCode.imageFunc("image/"+filename)
         print("테스트ㅡㅡ")
         returntext = text 
         return returntext

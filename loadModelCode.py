@@ -60,19 +60,16 @@ class CNN(nn.Module):
         return x
     
 
-# 이미지를 불러오고 전처리하는 함수
-def load_and_preprocess_image(image_path):
+def preprocess_image(image_path):
     image = Image.open(image_path)
-    preprocess = transforms = T.Compose([
-        T.Resize((32, 32)),  # 원하는 크기로 조정
-        T.RandomCrop((32, 32), padding=4), # 32x32로 잘라내어 가장자리에 padding 4 추가
-        T.RandomHorizontalFlip(p=0.5), # 이미지를 50% 확률로 수평으로 뒤집기
+    preprocess = T.Compose([
+        T.Resize((32, 32)), 
+        T.RandomCrop((32, 32), padding=4), 
+        T.RandomHorizontalFlip(p=0.5), 
         T.ToTensor(),
-        T.Normalize(mean=(0.6700974, 0.59195954, 0.43890765), std=(0.26962617, 0.2685, 0.313767)), # 정규화
-  #  T.ToPILImage()
+        T.Normalize(mean=(0.6700974, 0.59195954, 0.43890765), std=(0.26962617, 0.2685, 0.313767)), 
 ])
     image = preprocess(image)
-    # 배치 차원을 추가하여 모델에 입력할 수 있도록 함
     image = image.unsqueeze(0)
     return image
 
@@ -83,8 +80,6 @@ def imageFunc(imagepath):
     model = CNN(num_classes=12)
     model.load_state_dict(torch.load("CNNmodel.pth"))
     model.eval()
-
-
 
     # 클래스 목록
     class_names = ['딸기', 
@@ -101,11 +96,8 @@ def imageFunc(imagepath):
                 '포도']
 
 
-    # 이미지의 경로
-    image_path = imagepath
-
     # 이미지 불러오기 및 전처리
-    image = load_and_preprocess_image(image_path)
+    image = preprocess_image(imagepath)
 
     # 모델로부터 클래스 예측
     with torch.no_grad():
